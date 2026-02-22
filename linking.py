@@ -9,7 +9,7 @@ import pandas as pd
 
 # ================== Pfade (relativ zur Datei) ==================
 BASE_DIR  = os.path.dirname(os.path.abspath(__file__))
-IMAGE_DIR = os.path.join(BASE_DIR, "Images", "Objektbilder", "Objektbilder")  # <== dein Bilder-Root mit Jahresordnern
+IMAGE_DIR = os.path.join(BASE_DIR, "Images", "Objektbilder")  # <== dein Bilder-Root mit Jahresordnern
 EXCEL_DIR = os.path.join(BASE_DIR, "Excel-Files", "Objektdaten")
 OUT_CSV   = os.path.join(BASE_DIR, "linked.csv")
 OUT_MISSES_CSV = os.path.join(BASE_DIR, "linked_misses.csv")  # optional: Übersicht der verfehlten IDs
@@ -192,6 +192,13 @@ def build_links_like_group(meta: pd.DataFrame, images_root: str) -> pd.DataFrame
 def main():
     # 1) Excels laden (nur T1, gewünschte Zeilenbereiche)
     meta = load_selected_excels_only_t1(EXCEL_DIR)
+    print("T1 sample (raw):")
+    print(meta["obj_id_raw"].head(20).tolist())
+
+    print("\nT1 types:")
+    print(meta["obj_id_raw"].map(type).value_counts().head(10))
+
+    print("\nT1 non-null count:", meta["obj_id_raw"].notna().sum())
     if meta.empty:
         print("WARN: Keine Excel-Daten geladen.")
         pd.DataFrame(columns=["obj_id_raw","year","base_prefix","images","image_count","_source_files"]).to_csv(OUT_CSV, index=False, encoding="utf-8")
