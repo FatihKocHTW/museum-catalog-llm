@@ -1,17 +1,34 @@
-# IntelliJ IDEA
-.idea/
-*.iml
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
 
-# Build
-target/
-out/
+# Virtual environments
+.venv/
+venv/
+env/
+Lib/
+Scripts/
+pyvenv.cfg
 
-# Environment files
+# Secrets
 .env
 
-# OS-specific
+# Data and results (inventory data and photos are not public)
+data/*
+!data/README.md
+output/
+*.xls
+*.xlsx
+*.csv
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
 .DS_Store
 Thumbs.db
-
-# Images
-Images/
